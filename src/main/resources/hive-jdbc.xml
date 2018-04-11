@@ -1,0 +1,23 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="classpath:hiveJdbc.properties" ignore-unresolvable="true"/>
+    <bean id="hiveSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+        <property name="driverClassName" value="${driver}" />
+        <property name="url" value="${url}"/>
+        <!--没有配置database，就是默认的default database-->
+        <!--<property name="url" value="jdbc:kylin://10.5.4.19:7070/lifeline"/>-->
+        <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+    <bean id="hiveJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" >
+        <property name="dataSource" ref="hiveSource"></property>
+    </bean>
+    <bean id="hiveJdbcDao" class="com.gsafety.bigdata.lifeline.dao.HiveJdbcDao">
+        <property name="hiveJdbcTemplate" ref="hiveJdbcTemplate"></property>
+    </bean>
+</beans>

@@ -1,0 +1,10 @@
+<components>
+  <component name="jmx">
+    <!-- For JMX, should be configured as
+      <config name="[value of modelerType]:[attribute to be hidden]" />
+    -->
+    <config name="sun.management.RuntimeImpl:InputArguments" />
+	<config name="sun.management.RuntimeImpl:SystemProperties" />
+	<config name="sun.management.RuntimeImpl:ClassPath" />
+  </component>
+</components>

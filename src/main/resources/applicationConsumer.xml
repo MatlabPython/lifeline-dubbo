@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://code.alibabatech.com/schema/dubbo  
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <dubbo:application name="dubbo-service-consumer" />
+
+    <!-- 使用zookeeper注册中心暴露服务地址 -->
+    <dubbo:registry address="zookeeper://10.5.4.112:12181?backup=10.5.4.113:12181" protocol="zookeeper"/>
+
+    <!-- 声明需要暴露的服务接口 -->
+    <!-- <dubbo:reference id="LifeLineBDService" check="false" timeout="30000" interface="com.gsafety.bigdata.lifeline.service.LifeLineBDService" version="1.2" /> -->
+    <dubbo:reference id="BridgeQueryService" timeout="600000"
+                     interface="com.gsafety.bigdata.lifeline.service.BridgeQueryService" version="1.4"/>
+    <dubbo:reference id="WaterQueryService"  timeout="30000"
+                     interface="com.gsafety.bigdata.lifeline.service.WaterQueryService" version="1.4"/>
+    <dubbo:reference id="GasQueryService"    timeout="30000"
+                     interface="com.gsafety.bigdata.lifeline.service.GasQueryService" version="1.4"/>
+    <dubbo:reference id="ExportQueryService" timeout="30000"
+                     interface="com.gsafety.bigdata.lifeline.service.ExportQueryService" version="1.4"/>
+
+</beans>  

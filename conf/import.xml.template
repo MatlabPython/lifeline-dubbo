@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+	<!-- column_nmu: raw data columns number -->
+	<import id="first" column_num="7">
+		<!-- index: column index in raw data -->
+		<!-- type: column data type -->
+		<columns> 
+			<column index="1" type="int">SMS_ID</column> 
+			<column index="2" type="string">SMS_NAME</column>
+			<column index="3" type="boolean">SMS_ADDRESS</column>
+			<column index="4" type="long">SMS_SERIAL</column>
+		</columns>
+
+		<!-- Define row key -->
+		<rowkey>
+			SMS_ID+'_'+substring(SMS_NAME,1,4)+'_'+reverse(SMS_SERIAL)
+		</rowkey>
+
+		<!-- Define HTable columns -->
+		<!-- family: columns family -->
+		<!-- column: corresponding to column in raw data -->
+		<qualifiers>
+			<!-- Define normal columns -->
+			<normal family="NF">
+				<qualifier column="SMS_ID">H_ID</qualifier>
+				<qualifier column="SMS_NAME">H_NAME</qualifier>
+				<qualifier column="SMS_ADDRESS">H_ADDRESS</qualifier>
+			</normal>
+
+			<!-- Define composite columns -->
+			<composite family="CF1">
+				<qualifier class="com.huawei.H_COMBINE_1">H_COMBINE_1</qualifier>
+				<columns>
+					<column>SMS_SERIAL</column>
+					<column>SMS_ADDRESS</column>
+					<column>SMS_NAME</column>
+				</columns>
+			</composite>
+			
+			<composite family="CF2">
+				<qualifier class="com.huawei.H_COMBINE_2">H_COMBINE_2</qualifier>
+				<columns>
+					<column>SMS_NAME</column>
+					<column>SMS_ADDRESS</column>
+				</columns>
+			</composite>
+		</qualifiers>
+
+		<!-- Define bad line filter rule -->
+		<badlines>SMS_ID &lt; 7000 &amp;&amp; SMS_NAME == 'HBase'</badlines>
+	</import>
+</configuration>
