@@ -10,7 +10,8 @@
     <dubbo:application name="dubbo-service-consumer" />
 
     <!-- 使用zookeeper注册中心暴露服务地址 -->
-    <dubbo:registry address="zookeeper://10.5.4.112:12181?backup=10.5.4.113:12181" protocol="zookeeper"/>
+    <!--udap2:2181,udap3:2181,udap4:2181-->
+    <dubbo:registry address="zookeeper://10.5.4.28:2181?backup=10.5.4.29:2181,10.5.4.39:2181" protocol="zookeeper"/>
 
     <!-- 声明需要暴露的服务接口 -->
     <!-- <dubbo:reference id="LifeLineBDService" check="false" timeout="30000" interface="com.gsafety.bigdata.lifeline.service.LifeLineBDService" version="1.2" /> -->
@@ -18,8 +19,12 @@
                      interface="com.gsafety.bigdata.lifeline.service.BridgeQueryService" version="1.4"/>
     <dubbo:reference id="WaterQueryService"  timeout="30000"
                      interface="com.gsafety.bigdata.lifeline.service.WaterQueryService" version="1.4"/>
-    <dubbo:reference id="GasQueryService"    timeout="30000"
+    <dubbo:reference id="DrainQueryService"  timeout="30000"
+                     interface="com.gsafety.bigdata.lifeline.service.DrainQueryService" version="1.4"/>
+    <dubbo:reference id="GasQueryService"    timeout="60000"
                      interface="com.gsafety.bigdata.lifeline.service.GasQueryService" version="1.4"/>
+    <dubbo:reference id="HeatQueryService"    timeout="60000"
+                     interface="com.gsafety.bigdata.lifeline.service.HeatQueryService" version="1.4"/>
     <dubbo:reference id="ExportQueryService" timeout="30000"
                      interface="com.gsafety.bigdata.lifeline.service.ExportQueryService" version="1.4"/>
 
